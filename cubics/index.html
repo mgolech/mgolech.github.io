@@ -1,0 +1,1831 @@
+<html>
+
+<head>
+<title>Preperiodic Point Portraits of Cubic Polynomials</title>
+<link rel="stylesheet" href="style.css"></style>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.24/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="magic.js"></script>
+</head>
+
+<body>
+
+<h1>Preperiodic Point Portraits of Cubic Polynomials</h1>
+
+<hr />
+
+<p>This page tabulates the results of a 2013 USRA project that I undertook with the supervision of Kevin Hare and David McKinnon at the University of Waterloo.  The goal of the project was to explore the possible directed graph structures of the set of rational preperiodic points of cubic polynomials defined over <b>Q</b>.  Using the data from the 2007 <a href="https://rlbenedetto.people.amherst.edu/cubicdata/">Small Height Points for Cubic Polynomials</a> REU project by Rob Benedetto and his students, and by writing a Python program to classify finite functional digraphs by isomorphism, I found there to be exactly 103 distinct preperiodic point portraits exhibited among the first 14 billion conjugacy classes of cubic polynomials ordered by naïve height.  <!--An accompanying paper, which includes a description of the classification algorithm as well as some meditations on portraits of cubics, is in preparation.-->  My old writeup (from 2013) is available <a href="cubics2013.pdf">here</a>.</p>
+
+<hr />
+
+<p>The portraits on this page are grouped into two tables, one for each of Benedetto <i>et al.</i>’s two “normal forms” for cubic polynomials:</p>
+
+<div class="display"><i>az</i><sup>3</sup> + <i>bz</i> + 1</span>&emsp;and&emsp;<span class="math"><i>az</i><sup>3</sup> + <i>bz</i></span>.</div>
+
+<p>Every cubic polynomial over <b>Q</b> is linearly conjugate (<i>viz</i>. via some <i>z</i> &mapsto; <i>&alpha;z</i> + <i>&beta;</i>) to one in normal form (<i>cf</i>. &sect;4 of <a href="https://rlbenedetto.people.amherst.edu/papers/07reu_cub.pdf">their paper</a>). Since conjugacy induces an isomorphism between associated functional digraphs, the preperiodic point portrait of a cubic polynomial depends only on its normal form.</p>
+
+<p>The portraits are depicted as unlabelled directed graphs (hand-coded in TikZ).  Each portrait &Gamma; is accompanied by a listing of several statistics, namely:</p>
+
+<dl>
+	<dt>#</dt>
+		<dd>a unique ordinal number</dd>
+		
+	<dt><i>N</i></dt>
+		<dd>the number of instances of &Gamma; among the polynomials in the data, with a link to a text file listing them. The files are formatted in the same manner as Benedetto’s, and the entries contain the same information (see <a href="https://rlbenedetto.people.amherst.edu/cubicdata/#reading">Reading the data files</a>). Note that the files for the trivial portraits <a href="#I1">I1</a> and <a href="#II3">II3</a> list only those polynomials with at least one nontrivial point of small canonical height.</dd>
+
+	<dt><i>f</i>(<i>z</i>)</dt>
+		<dd>a representative of least height. In the (rare) cases where there does not exist a representative that minimizes the naïve height and the moduli height simultaneously, two representatives are given (<i>cf</i>. portraits <a href="#I36">36</a>, <a href="#I38">38</a>, <a href="#I55">55</a>, <a href="#I68">68</a>, <a href="#I69">69</a>, and <a href="#I78">78</a> in Table 1). </dd>
+
+	<dt><i>H</i></dt>
+		<dd>the least naïve height of a representative, defined as max&thinsp;{<i>H</i>(<i>a</i>), <i>H</i>(<i>b</i>)}</dd>
+
+	<dt><i>H</i><sup>*</sup></dt>
+		<dd> the least moduli height of a representative, defined as <i>H</i>(<i>a</i>&thinsp;:&thinsp;<i>b</i>&thinsp;:&thinsp;1) for the first normal form and as <i>H</i>(<i>b</i>) for the second. This statistic is omitted from Table 2 because <i>H</i><sup>*</sup> = <i>H</i> in each case there.</dd>
+
+	<dt><i>p</i></dt>
+		<dd>the number of vertices/edges (= “number of preperiodic <i>p</i>oints”)</dd>
+
+	<dt><i>c</i></dt>
+		<dd>the length of the longest directed path (= “maximum length of a preperiodic <i>c</i>hain”)</dd>
+
+	<dt><i>l</i></dt>
+		<dd>the length of the biggest cycle (= “maximum <i>l</i>ength of a periodic cycle”)</dd>
+
+	<dt><i>k</i></dt>
+		<dd>the number of connected components</dd>
+
+	<dt>cycles</dt>
+		<dd>a list of all cycle lengths, repeated according to multiplicity</dd>
+
+	<dt>degree</dt>
+		<dd>a 4-tuple (<i>d</i><sub>0</sub>, <i>d</i><sub>1</sub>, <i>d</i><sub>2</sub>, <i>d</i><sub>3</sub>) where <i>d<sub>i</sub></i> counts the number of vertices with in-degree equal to <i>i</i></dd>
+
+	<dt>structure</dt>
+		<dd>zero or more lines of the form “<i>n<sub>m</sub></i>: <i>a</i><sub><i>n</i>,0</sub>, <i>a</i><sub><i>n</i>,1</sub>, <i>a</i><sub><i>n</i>,2</sub>, &hellip;” where <i>a</i><sub><i>n</i>,<i>m</i></sub> counts the number of vertices that are <i>m</i> edges away from an <i>n</i>-cycle</dd>
+</dl>
+
+<p>There are 79 portraits in Table 1 and 37 portraits in Table 2.  The two tables have 13 portraits in common: portraits <a href="#II1">1</a>, <a href="#II2">2</a>, <a href="#II3">3</a>, <a href="#II4">4</a>, <a href="#II5">5</a>, <a href="#II7">7</a>, <a href="#II8">8</a>, <a href="#II9">9</a>, <a href="#II11">11</a>, <a href="#II12">12</a>, <a href="#II17">17</a>, <a href="#II29">29</a>, and <a href="#II33">33</a> in Table 2 are isomorphic to portraits <a href="#I29">29</a>, <a href="#I30">30</a>, <a href="#I3">3</a>, <a href="#I4">4</a>, <a href="#I40">40</a>, <a href="#I14">14</a>, <a href="#I44">44</a>, <a href="#I53">53</a>, <a href="#I49">49</a>, <a href="#I43">43</a>, <a href="#I70">70</a>, <a href="#I66">66</a>, and <a href="#I33">33</a> in Table 1, respectively.</p>
+
+<p>The tables can be sorted ascending or descending by clicking on the column headers.</p>
+
+<hr />
+
+<h2 id="I"><i>az</i><sup>3</sup>&nbsp;+&nbsp;<i>bz</i>&nbsp;+&nbsp;1</h2>
+
+<table id="tI">
+	<caption>Table 1. Preperiodic point portraits of polynomials of the form <span class="math"><i>az</i><sup>3</sup> + <i>bz</i> + 1</span> with <i>H</i>(<i>a</i>) and <i>H</i>(<i>b</i>) less than 300</caption>
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>&Gamma;</th>
+			<th><i>N</i></th>
+			<th><i>f</i>(<i>z</i>)</th>
+			<th><i>H</i></th>
+			<th><i>H</i><sup>*</sup></th>
+			<th><i>p</i></th>
+			<th><i>c</i></th>
+			<th><i>l</i></th>
+			<th><i>k</i></th>
+			<th>cycles</th>
+			<th>degree</th>
+			<th>structure</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="I1">
+			<td><a href="#I1">1</a>.</td>
+			<td><img src="pics/i/1.png" /></td>
+			<td data-sort="11939559973"><a href="data/i/1.txt">11,939,559,973</a> (21 MB)</td>
+			<td><i>z</i><sup>3</sup> + 1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td>0</td>
+			<td></td>
+			<td>(0, 0, 0, 0)</td>
+			<td></td>
+		</tr>
+		<tr id="I2">
+			<td><a href="#I2">2</a>.</td>
+			<td><img src="pics/i/2.png" /></td>
+			<td data-sort="84404"><a href="data/i/2.txt">84,404</a> (3 MB)</td>
+			<td>&minus;<i>z</i><sup>3</sup> + 1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>2</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(0, 2, 0, 0)</td>
+			<td>2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="I3">
+			<td><a href="#I3">3</a>.</td>
+			<td><img src="pics/i/3.png" /></td>
+			<td data-sort="282083"><a href="data/i/3.txt">282,083</a> (12 MB)</td>
+			<td><i>z</i><sup>3</sup> + <i>z</i> + 1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(0, 1, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1</td>
+		</tr>
+		<tr id="I4">
+			<td><a href="#I4">4</a>.</td>
+			<td><img src="pics/i/4.png" /></td>
+			<td data-sort="112291"><a href="data/i/4.txt">112,291</a> (6 MB)</td>
+			<td><i>z</i><sup>3</sup> &minus; <i>z</i> + 1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>3</td>
+			<td>2</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(2, 0, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2</td>
+		</tr>
+		<tr id="I5">
+			<td><a href="#I5">5</a>.</td>
+			<td><img src="pics/i/5.png" /></td>
+			<td data-sort="5"><a href="data/i/5.txt">5</a> (351 B)</td>
+			<td><i>z</i><sup>3</sup>/2 &minus; <i>z</i>/2 + 1</td>
+			<td>2</td>
+			<td>2</td>
+			<td>4</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>1, 1</td>
+			<td>(2, 1, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 2, 2</td>
+		</tr>
+		<tr id="I6">
+			<td><a href="#I6">6</a>.</td>
+			<td><img src="pics/i/6.png" /></td>
+			<td data-sort="1003"><a href="data/i/6.txt">1,003</a> (78 kB)</td>
+			<td>&minus;2<i>z</i><sup>3</sup> + <i>z</i>/2 + 1</td>
+			<td>2</td>
+			<td>4</td>
+			<td>4</td>
+			<td>3</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(2, 1, 0, 1)</td>
+			<td>2<sub><i>m</i></sub>: 2, 2</td>
+		</tr>
+		<tr id="I7">
+			<td><a href="#I7">7</a>.</td>
+			<td><img src="pics/i/7.png" /></td>
+			<td data-sort="91"><a href="data/i/7.txt">91</a> (5 kB)</td>
+			<td>&minus;<i>z</i><sup>3</sup> + 3<i>z</i> + 1</td>
+			<td>3</td>
+			<td>3</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(1, 0, 1, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1, 1</td>
+		</tr>
+		<tr id="I8">
+			<td><a href="#I8">8</a>.</td>
+			<td><img src="pics/i/8.png" /></td>
+			<td data-sort="2"><a href="data/i/8.txt">2</a> (149 B)</td>
+			<td><i>z</i><sup>3</sup>/2 &minus; 3<i>z</i>/2 + 1</td>
+			<td>3</td>
+			<td>3</td>
+			<td>5</td>
+			<td>3</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(2, 1, 2, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1, 1<br />2<sub><i>m</i></sub>: 2, 1</td>
+		</tr>
+		<tr id="I9">
+			<td><a href="#I9">9</a>.</td>
+			<td><img src="pics/i/9.png" /></td>
+			<td data-sort="1"><a href="data/i/9.txt">1</a> (67 B)</td>
+			<td>&minus;<i>z</i><sup>3</sup>/2 + 3<i>z</i>/2 + 1</td>
+			<td>3</td>
+			<td>3</td>
+			<td>5</td>
+			<td>4</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>(2, 1, 2, 0)</td>
+			<td>3<sub><i>m</i></sub>: 3, 2</td>
+		</tr>
+		<tr id="I10">
+			<td><a href="#I10">10</a>.</td>
+			<td><img src="pics/i/10.png" /></td>
+			<td data-sort="277"><a href="data/i/10.txt">277</a> (24 kB)</td>
+			<td><i>z</i><sup>3</sup>/3 &minus; <i>z</i>/3 + 1</td>
+			<td>3</td>
+			<td>3</td>
+			<td>4</td>
+			<td>3</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(2, 1, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 1</td>
+		</tr>
+		<tr id="I11">
+			<td><a href="#I11">11</a>.</td>
+			<td><img src="pics/i/11.png" /></td>
+			<td data-sort="42"><a href="data/i/11.txt">42</a> (2 kB)</td>
+			<td>4<i>z</i><sup>3</sup> &minus; 2<i>z</i> + 1</td>
+			<td>4</td>
+			<td>4</td>
+			<td>2</td>
+			<td>1</td>
+			<td>1</td>
+			<td>2</td>
+			<td>1, 1</td>
+			<td>(0, 2, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="I12">
+			<td><a href="#I12">12</a>.</td>
+			<td><img src="pics/i/12.png" /></td>
+			<td data-sort="7"><a href="data/i/12.txt">7</a> (420 B)</td>
+			<td>&minus;4<i>z</i><sup>3</sup> + 3<i>z</i> + 1</td>
+			<td>4</td>
+			<td>4</td>
+			<td>3</td>
+			<td>3</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(1, 1, 1, 0)</td>
+			<td>2<sub><i>m</i></sub>: 2, 1</td>
+		</tr>
+		<tr id="I13">
+			<td><a href="#I13">13</a>.</td>
+			<td><img src="pics/i/13.png" /></td>
+			<td data-sort="57"><a href="data/i/13.txt">57</a> (5 kB)</td>
+			<td><i>z</i><sup>3</sup>/3 &minus; 4<i>z</i>/3 + 1</td>
+			<td>4</td>
+			<td>4</td>
+			<td>5</td>
+			<td>4</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(2, 2, 0, 1)</td>
+			<td>2<sub><i>m</i></sub>: 2, 2, 1</td>
+		</tr>
+		<tr id="I14">
+			<td><a href="#I14">14</a>.</td>
+			<td><img src="pics/i/14.png" /></td>
+			<td data-sort="274"><a href="data/i/14.txt">274</a> (25 kB)</td>
+			<td>4<i>z</i><sup>3</sup>/3 &minus; 4<i>z</i>/3 + 1</td>
+			<td>4</td>
+			<td>4</td>
+			<td>5</td>
+			<td>2</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(2, 2, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 3, 2</td>
+		</tr>
+		<tr id="I15">
+			<td><a href="#I15">15</a>.</td>
+			<td><img src="pics/i/15.png" /></td>
+			<td data-sort="80"><a href="data/i/15.txt">80</a> (6 kB)</td>
+			<td>&minus;<i>z</i><sup>3</sup> + 5<i>z</i>/4 + 1</td>
+			<td>5</td>
+			<td>5</td>
+			<td>3</td>
+			<td>3</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>(0, 3, 0, 0)</td>
+			<td>3<sub><i>m</i></sub>: 3</td>
+		</tr>
+		<tr id="I16">
+			<td><a href="#I16">16</a>.</td>
+			<td><img src="pics/i/16.png" /></td>
+			<td data-sort="7"><a href="data/i/16.txt">7</a> (552 B)</td>
+			<td>&minus;2<i>z</i><sup>3</sup>/3 + 5<i>z</i>/3 + 1</td>
+			<td>5</td>
+			<td>5</td>
+			<td>4</td>
+			<td>4</td>
+			<td>4</td>
+			<td>1</td>
+			<td>4</td>
+			<td>(0, 4, 0, 0)</td>
+			<td>4<sub><i>m</i></sub>: 4</td>
+		</tr>
+		<tr id="I17">
+			<td><a href="#I17">17</a>.</td>
+			<td><img src="pics/i/17.png" /></td>
+			<td data-sort="29"><a href="data/i/17.txt">29</a> (3 kB)</td>
+			<td><i>z</i><sup>3</sup>/6 &minus; <i>z</i>/6 + 1</td>
+			<td>6</td>
+			<td>6</td>
+			<td>6</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(2, 3, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 3, 2, 1</td>
+		</tr>
+		<tr id="I18">
+			<td><a href="#I18">18</a>.</td>
+			<td><img src="pics/i/18.png" /></td>
+			<td data-sort="14"><a href="data/i/18.txt">14</a> (1 kB)</td>
+			<td>&minus;<i>z</i><sup>3</sup>/6 + <i>z</i>/6 + 1</td>
+			<td>6</td>
+			<td>6</td>
+			<td>5</td>
+			<td>4</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(2, 2, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 1, 1</td>
+		</tr>
+		<tr id="I19">
+			<td><a href="#I19">19</a>.</td>
+			<td><img src="pics/i/19.png" /></td>
+			<td data-sort="12"><a href="data/i/19.txt">12</a> (1 kB)</td>
+			<td>&minus;2<i>z</i><sup>3</sup>/3 + <i>z</i>/6 + 1</td>
+			<td>6</td>
+			<td>6</td>
+			<td>6</td>
+			<td>3</td>
+			<td>2</td>
+			<td>2</td>
+			<td>2, 2</td>
+			<td>(2, 3, 0, 1)</td>
+			<td>2<sub><i>m</i></sub>: 4, 2</td>
+		</tr>
+		<tr id="I20">
+			<td><a href="#I20">20</a>.</td>
+			<td><img src="pics/i/20.png" /></td>
+			<td data-sort="21"><a href="data/i/20.txt">21</a> (2 kB)</td>
+			<td>&minus;3<i>z</i><sup>3</sup>/2 + <i>z</i>/6 + 1</td>
+			<td>6</td>
+			<td>9</td>
+			<td>5</td>
+			<td>3</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(2, 2, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 2, 2</td>
+		</tr>
+		<tr id="I21">
+			<td><a href="#I21">21</a>.</td>
+			<td><img src="pics/i/21.png" /></td>
+			<td data-sort="6"><a href="data/i/21.txt">6</a> (595 B)</td>
+			<td><i>z</i><sup>3</sup>/3 &minus; 7<i>z</i>/3 + 1</td>
+			<td>7</td>
+			<td>7</td>
+			<td>7</td>
+			<td>4</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(4, 1, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 3, 1</td>
+		</tr>
+		<tr id="I22">
+			<td><a href="#I22">22</a>.</td>
+			<td><img src="pics/i/22.png" /></td>
+			<td data-sort="10"><a href="data/i/22.txt">10</a> (1 kB)</td>
+			<td>2<i>z</i><sup>3</sup>/3 &minus; 7<i>z</i>/6 + 1</td>
+			<td>7</td>
+			<td>7</td>
+			<td>8</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(4, 2, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 3, 4, 1</td>
+		</tr>
+		<tr id="I23">
+			<td><a href="#I23">23</a>.</td>
+			<td><img src="pics/i/23.png" /></td>
+			<td data-sort="13"><a href="data/i/23.txt">13</a> (1 kB)</td>
+			<td>&minus;2<i>z</i><sup>3</sup>/3 + 7<i>z</i>/6 + 1</td>
+			<td>7</td>
+			<td>7</td>
+			<td>7</td>
+			<td>4</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(4, 1, 0, 2)</td>
+			<td>2<sub><i>m</i></sub>: 2, 4, 1</td>
+		</tr>
+		<tr id="I24">
+			<td><a href="#I24">24</a>.</td>
+			<td><img src="pics/i/24.png" /></td>
+			<td data-sort="1"><a href="data/i/24.txt">1</a> (112 B)</td>
+			<td>&minus;3<i>z</i><sup>3</sup>/2 + 7<i>z</i>/6 + 1</td>
+			<td>7</td>
+			<td>9</td>
+			<td>8</td>
+			<td>5</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(4, 2, 0, 2)</td>
+			<td>2<sub><i>m</i></sub>: 2, 2, 3, 1</td>
+		</tr>
+		<tr id="I25">
+			<td><a href="#I25">25</a>.</td>
+			<td><img src="pics/i/25.png" /></td>
+			<td data-sort="2"><a href="data/i/25.txt">2</a> (201 B)</td>
+			<td><i>z</i><sup>3</sup>/6 &minus; 7<i>z</i>/6 + 1</td>
+			<td>7</td>
+			<td>7</td>
+			<td>7</td>
+			<td>4</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(4, 1, 0, 2)</td>
+			<td>2<sub><i>m</i></sub>: 2, 2, 3</td>
+		</tr>
+		<tr id="I26">
+			<td><a href="#I26">26</a>.</td>
+			<td><img src="pics/i/26.png" /></td>
+			<td data-sort="2"><a href="data/i/26.txt">2</a> (182 B)</td>
+			<td>&minus;<i>z</i><sup>3</sup>/6 + 7<i>z</i>/6 + 1</td>
+			<td>7</td>
+			<td>7</td>
+			<td>7</td>
+			<td>4</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(4, 1, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 1, 3</td>
+		</tr>
+		<tr id="I27">
+			<td><a href="#I27">27</a>.</td>
+			<td><img src="pics/i/27.png" /></td>
+			<td data-sort="2"><a href="data/i/27.txt">2</a> (115 B)</td>
+			<td>3<i>z</i><sup>3</sup>/2 &minus; 9<i>z</i>/2 + 1</td>
+			<td>9</td>
+			<td>9</td>
+			<td>3</td>
+			<td>3</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(1, 1, 1, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1, 1, 1</td>
+		</tr>
+		<tr id="I28">
+			<td><a href="#I28">28</a>.</td>
+			<td><img src="pics/i/28.png" /></td>
+			<td data-sort="8"><a href="data/i/28.txt">8</a> (1 kB)</td>
+			<td><i>z</i><sup>3</sup>/4 &minus; 9<i>z</i>/4 + 1</td>
+			<td>9</td>
+			<td>9</td>
+			<td>5</td>
+			<td>4</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>(2, 2, 0, 1)</td>
+			<td>3<sub><i>m</i></sub>: 3, 2</td>
+		</tr>
+		<tr id="I29">
+			<td><a href="#I29">29</a>.</td>
+			<td><img src="pics/i/29.png" /></td>
+			<td data-sort="840"><a href="data/i/29.txt">840</a> (59 kB)</td>
+			<td>9<i>z</i><sup>3</sup>/2 &minus; 5<i>z</i>/2 + 1</td>
+			<td>9</td>
+			<td>9</td>
+			<td>3</td>
+			<td>1</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(0, 3, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 3</td>
+		</tr>
+		<tr id="I30">
+			<td><a href="#I30">30</a>.</td>
+			<td><img src="pics/i/30.png" /></td>
+			<td data-sort="210"><a href="data/i/30.txt">210</a> (12 kB)</td>
+			<td>&minus;9<i>z</i><sup>3</sup>/10 &minus; <i>z</i>/10 + 1</td>
+			<td>10</td>
+			<td>10</td>
+			<td>3</td>
+			<td>2</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(0, 3, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="I31">
+			<td><a href="#I31">31</a>.</td>
+			<td><img src="pics/i/31.png" /></td>
+			<td data-sort="80"><a href="data/i/31.txt">80</a> (5 kB)</td>
+			<td>&minus;9<i>z</i><sup>3</sup>/10 + 11<i>z</i>/10 + 1</td>
+			<td>11</td>
+			<td>11</td>
+			<td>4</td>
+			<td>2</td>
+			<td>2</td>
+			<td>2</td>
+			<td>2, 2</td>
+			<td>(0, 4, 0, 0)</td>
+			<td>2<sub><i>m</i></sub>: 4</td>
+		</tr>
+		<tr id="I32">
+			<td><a href="#I32">32</a>.</td>
+			<td><img src="pics/i/32.png" /></td>
+			<td data-sort="2"><a href="data/i/32.txt">2</a> (216 B)</td>
+			<td><i>z</i><sup>3</sup>/6 &minus; 13<i>z</i>/6 + 1</td>
+			<td>13</td>
+			<td>13</td>
+			<td>9</td>
+			<td>5</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(4, 3, 0, 2)</td>
+			<td>2<sub><i>m</i></sub>: 2, 4, 2, 1</td>
+		</tr>
+		<tr id="I33">
+			<td><a href="#I33">33</a>.</td>
+			<td><img src="pics/i/33.png" /></td>
+			<td data-sort="1"><a href="data/i/33.txt">1</a> (108 B)</td>
+			<td>&minus;<i>z</i><sup>3</sup>/6 + 13<i>z</i>/6 + 1</td>
+			<td>13</td>
+			<td>13</td>
+			<td>9</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(4, 3, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 3, 4, 2</td>
+		</tr>
+		<tr id="I34">
+			<td><a href="#I34">34</a>.</td>
+			<td><img src="pics/i/34.png" /></td>
+			<td data-sort="1"><a href="data/i/34.txt">1</a> (106 B)</td>
+			<td>2<i>z</i><sup>3</sup>/3 &minus; 13<i>z</i>/6 + 1</td>
+			<td>13</td>
+			<td>13</td>
+			<td>8</td>
+			<td>5</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(4, 2, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 1, 1, 3</td>
+		</tr>
+		<tr id="I35">
+			<td><a href="#I35">35</a>.</td>
+			<td><img src="pics/i/35.png" /></td>
+			<td data-sort="1"><a href="data/i/35.txt">1</a> (110 B)</td>
+			<td>&minus;4<i>z</i><sup>3</sup>/3 + 13<i>z</i>/12 + 1</td>
+			<td>13</td>
+			<td>16</td>
+			<td>8</td>
+			<td>5</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>(4, 2, 0, 2)</td>
+			<td>3<sub><i>m</i></sub>: 3, 4, 1</td>
+		</tr>
+		<tr id="I36">
+			<td><a href="#I36">36</a>.</td>
+			<td><img src="pics/i/36.png" /></td>
+			<td data-sort="92"><a href="data/i/36.txt">92</a> (10 kB)</td>
+			<td><i>z</i><sup>3</sup>/16 &minus; 7<i>z</i>/4 + 1<br />&minus;9<i>z</i><sup>3</sup>/10 + 21<i>z</i>/10 + 1</td>
+			<td>16</td>
+			<td>21</td>
+			<td>6</td>
+			<td>3</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(4, 0, 0, 2)</td>
+			<td>2<sub><i>m</i></sub>: 2, 4</td>
+		</tr>
+		<tr id="I37">
+			<td><a href="#I37">37</a>.</td>
+			<td><img src="pics/i/37.png" /></td>
+			<td data-sort="1"><a href="data/i/37.txt">1</a> (89 B)</td>
+			<td>&minus;<i>z</i><sup>3</sup>/16 + 7<i>z</i>/4 + 1</td>
+			<td>16</td>
+			<td>28</td>
+			<td>6</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>1, 1</td>
+			<td>(4, 0, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 2, 4</td>
+		</tr>
+		<tr id="I38">
+			<td><a href="#I38">38</a>.</td>
+			<td><img src="pics/i/38.png" /></td>
+			<td data-sort="51"><a href="data/i/38.txt">51</a> (5 kB)</td>
+			<td>3<i>z</i><sup>3</sup>/16 &minus; 7<i>z</i>/12 + 1<br />2<i>z</i><sup>3</sup>/15 &minus; 38<i>z</i>/15 + 1</td>
+			<td>16</td>
+			<td>38</td>
+			<td>6</td>
+			<td>3</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(4, 0, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 3</td>
+		</tr>
+		<tr id="I39">
+			<td><a href="#I39">39</a>.</td>
+			<td><img src="pics/i/39.png" /></td>
+			<td data-sort="2"><a href="data/i/39.txt">2</a> (133 B)</td>
+			<td>3<i>z</i><sup>3</sup>/16 &minus; 9<i>z</i>/4 + 1</td>
+			<td>16</td>
+			<td>36</td>
+			<td>4</td>
+			<td>3</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(2, 0, 2, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1, 1, 2</td>
+		</tr>
+		<tr id="I40">
+			<td><a href="#I40">40</a>.</td>
+			<td><img src="pics/i/40.png" /></td>
+			<td data-sort="1"><a href="data/i/40.txt">1</a> (88 B)</td>
+			<td>9<i>z</i><sup>3</sup>/16 &minus; 3<i>z</i>/4 + 1</td>
+			<td>16</td>
+			<td>16</td>
+			<td>5</td>
+			<td>2</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(2, 1, 2, 0)</td>
+			<td>1<sub><i>m</i></sub>: 3, 2</td>
+		</tr>
+		<tr id="I41">
+			<td><a href="#I41">41</a>.</td>
+			<td><img src="pics/i/41.png" /></td>
+			<td data-sort="1"><a href="data/i/41.txt">1</a> (78 B)</td>
+			<td>&minus;9<i>z</i><sup>3</sup>/16 + 3<i>z</i>/4 + 1</td>
+			<td>16</td>
+			<td>16</td>
+			<td>4</td>
+			<td>3</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(2, 0, 2, 0)</td>
+			<td>2<sub><i>m</i></sub>: 2, 2</td>
+		</tr>
+		<tr id="I42">
+			<td><a href="#I42">42</a>.</td>
+			<td><img src="pics/i/42.png" /></td>
+			<td data-sort="1"><a href="data/i/42.txt">1</a> (86 B)</td>
+			<td>&minus;16<i>z</i><sup>3</sup>/15 + 16<i>z</i>/15 + 1</td>
+			<td>16</td>
+			<td>16</td>
+			<td>6</td>
+			<td>3</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(2, 3, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 1<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="I43">
+			<td><a href="#I43">43</a>.</td>
+			<td><img src="pics/i/43.png" /></td>
+			<td data-sort="88"><a href="data/i/43.txt">88</a> (10 kB)</td>
+			<td>9<i>z</i><sup>3</sup>/10 &minus; 21<i>z</i>/10 + 1</td>
+			<td>21</td>
+			<td>21</td>
+			<td>7</td>
+			<td>2</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(4, 1, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 3, 4</td>
+		</tr>
+		<tr id="I44">
+			<td><a href="#I44">44</a>.</td>
+			<td><img src="pics/i/44.png" /></td>
+			<td data-sort="11"><a href="data/i/44.txt">11</a> (1 kB)</td>
+			<td>25<i>z</i><sup>3</sup>/12 &minus; 25<i>z</i>/12 + 1</td>
+			<td>25</td>
+			<td>25</td>
+			<td>5</td>
+			<td>2</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(2, 2, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="I45">
+			<td><a href="#I45">45</a>.</td>
+			<td><img src="pics/i/45.png" /></td>
+			<td data-sort="1"><a href="data/i/45.txt">1</a> (165 B)</td>
+			<td><i>z</i><sup>3</sup>/12 &minus; 25<i>z</i>/12 + 1</td>
+			<td>25</td>
+			<td>25</td>
+			<td>7</td>
+			<td>6</td>
+			<td>5</td>
+			<td>1</td>
+			<td>5</td>
+			<td>(2, 4, 0, 1)</td>
+			<td>5<sub><i>m</i></sub>: 5, 2</td>
+		</tr>
+		<tr id="I46">
+			<td><a href="#I46">46</a>.</td>
+			<td><img src="pics/i/46.png" /></td>
+			<td data-sort="1"><a href="data/i/46.txt">1</a> (89 B)</td>
+			<td>&minus;<i>z</i><sup>3</sup>/12 + 25<i>z</i>/12 + 1</td>
+			<td>25</td>
+			<td>25</td>
+			<td>8</td>
+			<td>4</td>
+			<td>3</td>
+			<td>4</td>
+			<td>1, 1, 1, 3</td>
+			<td>(2, 5, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 3<br />3<sub><i>m</i></sub>: 3, 2</td>
+		</tr>
+		<tr id="I47">
+			<td><a href="#I47">47</a>.</td>
+			<td><img src="pics/i/47.png" /></td>
+			<td data-sort="1"><a href="data/i/47.txt">1</a> (90 B)</td>
+			<td>3<i>z</i><sup>3</sup>/4 &minus; 25<i>z</i>/12 + 1</td>
+			<td>25</td>
+			<td>25</td>
+			<td>7</td>
+			<td>5</td>
+			<td>3</td>
+			<td>2</td>
+			<td>1, 3</td>
+			<td>(2, 4, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />3<sub><i>m</i></sub>: 3, 2, 1</td>
+		</tr>
+		<tr id="I48">
+			<td><a href="#I48">48</a>.</td>
+			<td><img src="pics/i/48.png" /></td>
+			<td data-sort="4"><a href="data/i/48.txt">4</a> (331 B)</td>
+			<td>7<i>z</i><sup>3</sup>/6 &minus; 25<i>z</i>/6 + 1</td>
+			<td>25</td>
+			<td>25</td>
+			<td>4</td>
+			<td>3</td>
+			<td>3</td>
+			<td>2</td>
+			<td>1, 3</td>
+			<td>(0, 4, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />3<sub><i>m</i></sub>: 3</td>
+		</tr>
+		<tr id="I49">
+			<td><a href="#I49">49</a>.</td>
+			<td><img src="pics/i/49.png" /></td>
+			<td data-sort="11"><a href="data/i/49.txt">11</a> (1 kB)</td>
+			<td>&minus;2<i>z</i><sup>3</sup>/15 + 19<i>z</i>/30 + 1</td>
+			<td>30</td>
+			<td>30</td>
+			<td>5</td>
+			<td>3</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(2, 2, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 2</td>
+		</tr>
+		<tr id="I50">
+			<td><a href="#I50">50</a>.</td>
+			<td><img src="pics/i/50.png" /></td>
+			<td data-sort="1"><a href="data/i/50.txt">1</a> (105 B)</td>
+			<td>&minus;<i>z</i><sup>3</sup>/3 + 37<i>z</i>/12 + 1</td>
+			<td>37</td>
+			<td>37</td>
+			<td>7</td>
+			<td>5</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(2, 4, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 2, 2, 1, 1</td>
+		</tr>
+		<tr id="I51">
+			<td><a href="#I51">51</a>.</td>
+			<td><img src="pics/i/51.png" /></td>
+			<td data-sort="1"><a href="data/i/51.txt">1</a> (101 B)</td>
+			<td>&minus;4<i>z</i><sup>3</sup>/3 + 37<i>z</i>/12 + 1</td>
+			<td>37</td>
+			<td>37</td>
+			<td>6</td>
+			<td>5</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(2, 3, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 1, 1, 1</td>
+		</tr>
+		<tr id="I52">
+			<td><a href="#I52">52</a>.</td>
+			<td><img src="pics/i/52.png" /></td>
+			<td data-sort="2"><a href="data/i/52.txt">2</a> (368 B)</td>
+			<td>&minus;32<i>z</i><sup>3</sup>/3 + 37<i>z</i>/6 + 1</td>
+			<td>37</td>
+			<td>64</td>
+			<td>6</td>
+			<td>5</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(2, 3, 0, 1)</td>
+			<td>2<sub><i>m</i></sub>: 2, 2, 1, 1</td>
+		</tr>
+		<tr id="I53">
+			<td><a href="#I53">53</a>.</td>
+			<td><img src="pics/i/53.png" /></td>
+			<td data-sort="2"><a href="data/i/53.txt">2</a> (240 B)</td>
+			<td>32<i>z</i><sup>3</sup>/15 &minus; 47<i>z</i>/15 + 1</td>
+			<td>47</td>
+			<td>47</td>
+			<td>5</td>
+			<td>2</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 1, 1, 2</td>
+			<td>(0, 5, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 3<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="I54">
+			<td><a href="#I54">54</a>.</td>
+			<td><img src="pics/i/54.png" /></td>
+			<td data-sort="2"><a href="data/i/54.txt">2</a> (223 B)</td>
+			<td><i>z</i><sup>3</sup>/48 &minus; 19<i>z</i>/12 + 1</td>
+			<td>48</td>
+			<td>76</td>
+			<td>8</td>
+			<td>5</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(4, 2, 0, 2)</td>
+			<td>2<sub><i>m</i></sub>: 2, 4, 1, 1</td>
+		</tr>
+		<tr id="I55">
+			<td><a href="#I55">55</a>.</td>
+			<td><img src="pics/i/55.png" /></td>
+			<td data-sort="2"><a href="data/i/55.txt">2</a> (230 B)</td>
+			<td><i>z</i><sup>3</sup>/48 &minus; 31<i>z</i>/12 + 1<br />&minus;49<i>z</i><sup>3</sup>/48 + 19<i>z</i>/12 + 1</td>
+			<td>48</td>
+			<td>76</td>
+			<td>9</td>
+			<td>4</td>
+			<td>2</td>
+			<td>2</td>
+			<td>2, 2</td>
+			<td>(4, 3, 0, 2)</td>
+			<td>2<sub><i>m</i></sub>: 4, 4, 1</td>
+		</tr>
+		<tr id="I56">
+			<td><a href="#I56">56</a>.</td>
+			<td><img src="pics/i/56.png" /></td>
+			<td data-sort="1"><a href="data/i/56.txt">1</a> (118 B)</td>
+			<td>25<i>z</i><sup>3</sup>/24 &minus; 49<i>z</i>/24 + 1</td>
+			<td>49</td>
+			<td>49</td>
+			<td>9</td>
+			<td>4</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(4, 3, 0, 2)</td>
+			<td>2<sub><i>m</i></sub>: 2, 4, 3</td>
+		</tr>
+		<tr id="I57">
+			<td><a href="#I57">57</a>.</td>
+			<td><img src="pics/i/57.png" /></td>
+			<td data-sort="1"><a href="data/i/57.txt">1</a> (131 B)</td>
+			<td>5<i>z</i><sup>3</sup>/12 &minus; 49<i>z</i>/60 + 1</td>
+			<td>60</td>
+			<td>60</td>
+			<td>9</td>
+			<td>4</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(6, 0, 0, 3)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 3, 3</td>
+		</tr>
+		<tr id="I58">
+			<td><a href="#I58">58</a>.</td>
+			<td><img src="pics/i/58.png" /></td>
+			<td data-sort="3"><a href="data/i/58.txt">3</a> (394 B)</td>
+			<td>&minus;5<i>z</i><sup>3</sup>/12 + 49<i>z</i>/60 + 1</td>
+			<td>60</td>
+			<td>60</td>
+			<td>9</td>
+			<td>4</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(6, 0, 0, 3)</td>
+			<td>2<sub><i>m</i></sub>: 2, 4, 3</td>
+		</tr>
+		<tr id="I59">
+			<td><a href="#I59">59</a>.</td>
+			<td><img src="pics/i/59.png" /></td>
+			<td data-sort="1"><a href="data/i/59.txt">1</a> (77 B)</td>
+			<td>6<i>z</i><sup>3</sup>/5 &minus; 61<i>z</i>/30 + 1</td>
+			<td>61</td>
+			<td>61</td>
+			<td>6</td>
+			<td>5</td>
+			<td>4</td>
+			<td>1</td>
+			<td>4</td>
+			<td>(2, 3, 0, 1)</td>
+			<td>4<sub><i>m</i></sub>: 4, 2</td>
+		</tr>
+		<tr id="I60">
+			<td><a href="#I60">60</a>.</td>
+			<td><img src="pics/i/60.png" /></td>
+			<td data-sort="1"><a href="data/i/60.txt">1</a> (118 B)</td>
+			<td><i>z</i><sup>3</sup>/6 &minus; 73<i>z</i>/24 + 1</td>
+			<td>73</td>
+			<td>73</td>
+			<td>8</td>
+			<td>4</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(4, 2, 0, 2)</td>
+			<td>2<sub><i>m</i></sub>: 2, 2, 4</td>
+		</tr>
+		<tr id="I61">
+			<td><a href="#I61">61</a>.</td>
+			<td><img src="pics/i/61.png" /></td>
+			<td data-sort="2"><a href="data/i/61.txt">2</a> (465 B)</td>
+			<td>&minus;<i>z</i><sup>3</sup>/6 + 73<i>z</i>/24 + 1</td>
+			<td>73</td>
+			<td>73</td>
+			<td>6</td>
+			<td>4</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(2, 3, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 2, 1</td>
+		</tr>
+		<tr id="I62">
+			<td><a href="#I62">62</a>.</td>
+			<td><img src="pics/i/62.png" /></td>
+			<td data-sort="1"><a href="data/i/62.txt">1</a> (84 B)</td>
+			<td><i>z</i><sup>3</sup>/30 &minus; 79<i>z</i>/30 + 1</td>
+			<td>79</td>
+			<td>79</td>
+			<td>7</td>
+			<td>4</td>
+			<td>2</td>
+			<td>2</td>
+			<td>2, 2</td>
+			<td>(2, 4, 0, 1)</td>
+			<td>2<sub><i>m</i></sub>: 4, 2, 1</td>
+		</tr>
+		<tr id="I63">
+			<td><a href="#I63">63</a>.</td>
+			<td><img src="pics/i/63.png" /></td>
+			<td data-sort="3"><a href="data/i/63.txt">3</a> (348 B)</td>
+			<td>49<i>z</i><sup>3</sup>/30 &minus; 79<i>z</i>/30 + 1</td>
+			<td>79</td>
+			<td>79</td>
+			<td>6</td>
+			<td>4</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(2, 3, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 2, 2, 1</td>
+		</tr>
+		<tr id="I64">
+			<td><a href="#I64">64</a>.</td>
+			<td><img src="pics/i/64.png" /></td>
+			<td data-sort="2"><a href="data/i/64.txt">2</a> (303 B)</td>
+			<td>&minus;<i>z</i><sup>3</sup>/30 + 91<i>z</i>/30 + 1</td>
+			<td>91</td>
+			<td>91</td>
+			<td>8</td>
+			<td>5</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>(4, 2, 0, 2)</td>
+			<td>3<sub><i>m</i></sub>: 3, 4, 1</td>
+		</tr>
+		<tr id="I65">
+			<td><a href="#I65">65</a>.</td>
+			<td><img src="pics/i/65.png" /></td>
+			<td data-sort="1"><a href="data/i/65.txt">1</a> (86 B)</td>
+			<td>8<i>z</i><sup>3</sup>/15 &minus; 121<i>z</i>/30 + 1</td>
+			<td>121</td>
+			<td>121</td>
+			<td>6</td>
+			<td>5</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>(2, 3, 0, 1)</td>
+			<td>3<sub><i>m</i></sub>: 3, 2, 1</td>
+		</tr>
+		<tr id="I66">
+			<td><a href="#I66">66</a>.</td>
+			<td><img src="pics/i/66.png" /></td>
+			<td data-sort="4"><a href="data/i/66.txt">4</a> (683 B)</td>
+			<td>121<i>z</i><sup>3</sup>/80 &minus; 91<i>z</i>/20 + 1</td>
+			<td>121</td>
+			<td>364</td>
+			<td>9</td>
+			<td>2</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(6, 0, 0, 3)</td>
+			<td>1<sub><i>m</i></sub>: 3, 6</td>
+		</tr>
+		<tr id="I67">
+			<td><a href="#I67">67</a>.</td>
+			<td><img src="pics/i/67.png" /></td>
+			<td data-sort="1"><a href="data/i/67.txt">1</a> (94 B)</td>
+			<td>&minus;121<i>z</i><sup>3</sup>/80 + 71<i>z</i>/20 + 1</td>
+			<td>121</td>
+			<td>284</td>
+			<td>6</td>
+			<td>2</td>
+			<td>2</td>
+			<td>3</td>
+			<td>2, 2, 2</td>
+			<td>(0, 6, 0, 0)</td>
+			<td>2<sub><i>m</i></sub>: 6</td>
+		</tr>
+		<tr id="I68">
+			<td><a href="#I68">68</a>.</td>
+			<td><img src="pics/i/68.png" /></td>
+			<td data-sort="5"><a href="data/i/68.txt">5</a> (373 B)</td>
+			<td>18<i>z</i><sup>3</sup>/125 &minus; 3<i>z</i>/10 + 1<br />144<i>z</i><sup>3</sup> &minus; 12<i>z</i> + 1</td>
+			<td>125</td>
+			<td>144</td>
+			<td>4</td>
+			<td>2</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(1, 2, 1, 0)</td>
+			<td>1<sub><i>m</i></sub>: 3, 1</td>
+		</tr>
+		<tr id="I69">
+			<td><a href="#I69">69</a>.</td>
+			<td><img src="pics/i/69.png" /></td>
+			<td data-sort="3"><a href="data/i/69.txt">3</a> (215 B)</td>
+			<td>16<i>z</i><sup>3</sup>/125 &minus; 12<i>z</i>/5 + 1<br />&minus;121<i>z</i><sup>3</sup>/250 + 3<i>z</i>/10 + 1</td>
+			<td>125</td>
+			<td>250</td>
+			<td>4</td>
+			<td>2</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(1, 2, 1, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1, 1<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="I70">
+			<td><a href="#I70">70</a>.</td>
+			<td><img src="pics/i/70.png" /></td>
+			<td data-sort="1"><a href="data/i/70.txt">1</a> (164 B)</td>
+			<td>3<i>z</i><sup>3</sup>/128 &minus; 55<i>z</i>/24 + 1</td>
+			<td>128</td>
+			<td>880</td>
+			<td>5</td>
+			<td>4</td>
+			<td>4</td>
+			<td>2</td>
+			<td>1, 4</td>
+			<td>(0, 5, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />4<sub><i>m</i></sub>: 4</td>
+		</tr>
+		<tr id="I71">
+			<td><a href="#I71">71</a>.</td>
+			<td><img src="pics/i/71.png" /></td>
+			<td data-sort="3"><a href="data/i/71.txt">3</a> (484 B)</td>
+			<td>&minus;147<i>z</i><sup>3</sup>/80 + 31<i>z</i>/60 + 1</td>
+			<td>147</td>
+			<td>441</td>
+			<td>8</td>
+			<td>3</td>
+			<td>2</td>
+			<td>2</td>
+			<td>2, 2</td>
+			<td>(4, 2, 0, 2)</td>
+			<td>2<sub><i>m</i></sub>: 4, 4</td>
+		</tr>
+		<tr id="I72">
+			<td><a href="#I72">72</a>.</td>
+			<td><img src="pics/i/72.png" /></td>
+			<td data-sort="1"><a href="data/i/72.txt">1</a> (95 B)</td>
+			<td>&minus;<i>z</i><sup>3</sup>/120 + 169<i>z</i>/120 + 1</td>
+			<td>169</td>
+			<td>169</td>
+			<td>7</td>
+			<td>4</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(2, 4, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 3, 2, 1, 1</td>
+		</tr>
+		<tr id="I73">
+			<td><a href="#I73">73</a>.</td>
+			<td><img src="pics/i/73.png" /></td>
+			<td data-sort="1"><a href="data/i/73.txt">1</a> (115 B)</td>
+			<td>49<i>z</i><sup>3</sup>/120 &minus; 169<i>z</i>/120 + 1</td>
+			<td>169</td>
+			<td>169</td>
+			<td>8</td>
+			<td>4</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(4, 2, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 2, 4, 1</td>
+		</tr>
+		<tr id="I74">
+			<td><a href="#I74">74</a>.</td>
+			<td><img src="pics/i/74.png" /></td>
+			<td data-sort="1"><a href="data/i/74.txt">1</a> (130 B)</td>
+			<td>&minus;169<i>z</i><sup>3</sup>/96 + 109<i>z</i>/24 + 1</td>
+			<td>169</td>
+			<td>436</td>
+			<td>8</td>
+			<td>3</td>
+			<td>2</td>
+			<td>3</td>
+			<td>2, 2, 2</td>
+			<td>(2, 5, 0, 1)</td>
+			<td>2<sub><i>m</i></sub>: 6, 2</td>
+		</tr>
+		<tr id="I75">
+			<td><a href="#I75">75</a>.</td>
+			<td><img src="pics/i/75.png" /></td>
+			<td data-sort="1"><a href="data/i/75.txt">1</a> (214 B)</td>
+			<td>&minus;147<i>z</i><sup>3</sup>/10 + 181<i>z</i>/30 + 1</td>
+			<td>181</td>
+			<td>441</td>
+			<td>7</td>
+			<td>3</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 1, 1, 2</td>
+			<td>(2, 4, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 3<br />2<sub><i>m</i></sub>: 2, 2</td>
+		</tr>
+		<tr id="I76">
+			<td><a href="#I76">76</a>.</td>
+			<td><img src="pics/i/76.png" /></td>
+			<td data-sort="1"><a href="data/i/76.txt">1</a> (120 B)</td>
+			<td><i>z</i><sup>3</sup>/240 &minus; 151<i>z</i>/60 + 1</td>
+			<td>240</td>
+			<td>604</td>
+			<td>10</td>
+			<td>3</td>
+			<td>2</td>
+			<td>3</td>
+			<td>2, 2, 2</td>
+			<td>(4, 4, 0, 2)</td>
+			<td>2<sub><i>m</i></sub>: 6, 4</td>
+		</tr>
+		<tr id="I77">
+			<td><a href="#I77">77</a>.</td>
+			<td><img src="pics/i/77.png" /></td>
+			<td data-sort="1"><a href="data/i/77.txt">1</a> (99 B)</td>
+			<td>243<i>z</i><sup>3</sup>/10 &minus; 151<i>z</i>/30 + 1</td>
+			<td>243</td>
+			<td>729</td>
+			<td>6</td>
+			<td>4</td>
+			<td>3</td>
+			<td>2</td>
+			<td>1, 3</td>
+			<td>(2, 3, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />3<sub><i>m</i></sub>: 3, 2</td>
+		</tr>
+		<tr id="I78">
+			<td><a href="#I78">78</a>.</td>
+			<td><img src="pics/i/78.png" /></td>
+			<td data-sort="2"><a href="data/i/78.txt">2</a> (163 B)</td>
+			<td>&minus;49<i>z</i><sup>3</sup>/250 + 27<i>z</i>/10 + 1<br />&minus;289<i>z</i><sup>3</sup>/16 + 27<i>z</i>/4 + 1</td>
+			<td>250</td>
+			<td>289</td>
+			<td>4</td>
+			<td>4</td>
+			<td>2</td>
+			<td>1</td>
+			<td>2</td>
+			<td>(1, 2, 1, 0)</td>
+			<td>2<sub><i>m</i></sub>: 2, 1, 1</td>
+		</tr>
+		<tr id="I79">
+			<td><a href="#I79">79</a>.</td>
+			<td><img src="pics/i/79.png" /></td>
+			<td data-sort="1"><a href="data/i/79.txt">1</a> (119 B)</td>
+			<td>27<i>z</i><sup>3</sup>/256 &minus; 133<i>z</i>/48 + 1</td>
+			<td>256</td>
+			<td>2128</td>
+			<td>7</td>
+			<td>4</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>(4, 1, 0, 2)</td>
+			<td>3<sub><i>m</i></sub>: 3, 4</td>
+		</tr>
+	</tbody>
+</table>
+
+<hr />
+
+<h2 id="II"><i>az</i><sup>3</sup>&nbsp;+&nbsp;<i>bz</i></h2>
+
+<table id="tII">
+	<caption>Table 2. Preperiodic point portraits of polynomials of the form <span class="math"><i>az</i><sup>3</sup> + <i>bz</i></span> with <i>H</i>(<i>a</i>) and <i>H</i>(<i>b</i>) less than 300</caption>
+	<thead>
+		<tr>
+			<th>#</th>
+			<th>&Gamma;</th>
+			<th><i>N</i></th>
+			<th><i>f</i>(<i>z</i>)</th>
+			<th><i>H</i></th>
+			<th><i>p</i></th>
+			<th><i>c</i></th>
+			<th><i>l</i></th>
+			<th><i>k</i></th>
+			<th>cycles</th>
+			<th>degree</th>
+			<th>structure</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr id="II1">
+			<td><a href="#II1">1</a>.</td>
+			<td><img src="pics/ii/1.png" /></td>
+			<td data-sort="94459"><a href="data/ii/1.txt">94,459</a> (5 MB)</td>
+			<td><i>z</i><sup>3</sup></td>
+			<td>1</td>
+			<td>3</td>
+			<td>1</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(0, 3, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 3</td>
+		</tr>
+		<tr id="II2">
+			<td><a href="#II2">2</a>.</td>
+			<td><img src="pics/ii/2.png" /></td>
+			<td data-sort="94459"><a href="data/ii/2.txt">94,459</a> (4 MB)</td>
+			<td>&minus;<i>z</i><sup>3</sup></td>
+			<td>1</td>
+			<td>3</td>
+			<td>2</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(0, 3, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="II3">
+			<td><a href="#II3">3</a>.</td>
+			<td><img src="pics/ii/3.png" /></td>
+			<td data-sort="2072790590"><a href="data/ii/3.txt">2,072,790,590</a> (32 kB)</td>
+			<td><i>z</i><sup>3</sup> + <i>z</i></td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(0, 1, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1</td>
+		</tr>
+		<tr id="II4">
+			<td><a href="#II4">4</a>.</td>
+			<td><img src="pics/ii/4.png" /></td>
+			<td data-sort="108794"><a href="data/ii/4.txt">108,794</a> (6 MB)</td>
+			<td><i>z</i><sup>3</sup> &minus; <i>z</i></td>
+			<td>1</td>
+			<td>3</td>
+			<td>2</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(2, 0, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2</td>
+		</tr>
+		<tr id="II5">
+			<td><a href="#II5">5</a>.</td>
+			<td><img src="pics/ii/5.png" /></td>
+			<td data-sort="2"><a href="data/ii/5.txt">2</a> (133 B)</td>
+			<td><i>z</i><sup>3</sup> &minus; 3<i>z</i></td>
+			<td>3</td>
+			<td>5</td>
+			<td>2</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(2, 1, 2, 0)</td>
+			<td>1<sub><i>m</i></sub>: 3, 2</td>
+		</tr>
+		<tr id="II6">
+			<td><a href="#II6">6</a>.</td>
+			<td><img src="pics/ii/6.png" /></td>
+			<td data-sort="2"><a href="data/ii/6.txt">2</a> (125 B)</td>
+			<td>&minus;<i>z</i><sup>3</sup> + 3<i>z</i></td>
+			<td>3</td>
+			<td>5</td>
+			<td>3</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(2, 1, 2, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 2, 2</td>
+		</tr>
+		<tr id="II7">
+			<td><a href="#II7">7</a>.</td>
+			<td><img src="pics/ii/7.png" /></td>
+			<td data-sort="201"><a href="data/ii/7.txt">201</a> (15 kB)</td>
+			<td>3<i>z</i><sup>3</sup> &minus; <i>z</i>/3</td>
+			<td>3</td>
+			<td>5</td>
+			<td>2</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(2, 2, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 3, 2</td>
+		</tr>
+		<tr id="II8">
+			<td><a href="#II8">8</a>.</td>
+			<td><img src="pics/ii/8.png" /></td>
+			<td data-sort="201"><a href="data/ii/8.txt">201</a> (14 kB)</td>
+			<td>&minus;3<i>z</i><sup>3</sup> + <i>z</i>/3</td>
+			<td>3</td>
+			<td>5</td>
+			<td>2</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(2, 2, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="II9">
+			<td><a href="#II9">9</a>.</td>
+			<td><img src="pics/ii/9.png" /></td>
+			<td data-sort="174"><a href="data/ii/9.txt">174</a> (13 kB)</td>
+			<td><i>z</i><sup>3</sup> &minus; 5<i>z</i>/4</td>
+			<td>5</td>
+			<td>5</td>
+			<td>2</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 1, 1, 2</td>
+			<td>(0, 5, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 3<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="II10">
+			<td><a href="#II10">10</a>.</td>
+			<td><img src="pics/ii/10.png" /></td>
+			<td data-sort="116"><a href="data/ii/10.txt">116</a> (6 kB)</td>
+			<td>2<i>z</i><sup>3</sup> &minus; 5<i>z</i>/2</td>
+			<td>5</td>
+			<td>5</td>
+			<td>2</td>
+			<td>2</td>
+			<td>3</td>
+			<td>1, 2, 2</td>
+			<td>(0, 5, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 4</td>
+		</tr>
+		<tr id="II11">
+			<td><a href="#II11">11</a>.</td>
+			<td><img src="pics/ii/11.png" /></td>
+			<td data-sort="46"><a href="data/ii/11.txt">46</a> (3 kB)</td>
+			<td>3<i>z</i><sup>3</sup>/2 &minus; <i>z</i>/6</td>
+			<td>6</td>
+			<td>5</td>
+			<td>3</td>
+			<td>1</td>
+			<td>1</td>
+			<td>1</td>
+			<td>(2, 2, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 2</td>
+		</tr>
+		<tr id="II12">
+			<td><a href="#II12">12</a>.</td>
+			<td><img src="pics/ii/12.png" /></td>
+			<td data-sort="149"><a href="data/ii/12.txt">149</a> (16 kB)</td>
+			<td>2<i>z</i><sup>3</sup> &minus; 7<i>z</i>/2</td>
+			<td>7</td>
+			<td>7</td>
+			<td>2</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(4, 1, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 3, 4</td>
+		</tr>
+		<tr id="II13">
+			<td><a href="#II13">13</a>.</td>
+			<td><img src="pics/ii/13.png" /></td>
+			<td data-sort="149"><a href="data/ii/13.txt">149</a> (16 kB)</td>
+			<td>&minus;2<i>z</i><sup>3</sup> + 7<i>z</i>/2</td>
+			<td>7</td>
+			<td>7</td>
+			<td>3</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(4, 1, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 2, 4</td>
+		</tr>
+		<tr id="II14">
+			<td><a href="#II14">14</a>.</td>
+			<td><img src="pics/ii/14.png" /></td>
+			<td data-sort="8"><a href="data/ii/14.txt">8</a> (878 B)</td>
+			<td>3<i>z</i><sup>3</sup>/2 &minus; 13<i>z</i>/6</td>
+			<td>13</td>
+			<td>9</td>
+			<td>3</td>
+			<td>2</td>
+			<td>3</td>
+			<td>1, 2, 2</td>
+			<td>(4, 3, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 4, 4</td>
+		</tr>
+		<tr id="II15">
+			<td><a href="#II15">15</a>.</td>
+			<td><img src="pics/ii/15.png" /></td>
+			<td data-sort="2"><a href="data/ii/15.txt">2</a> (254 B)</td>
+			<td>3<i>z</i><sup>3</sup> &minus; 13<i>z</i>/12</td>
+			<td>13</td>
+			<td>9</td>
+			<td>3</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 1, 1, 2</td>
+			<td>(4, 3, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 3<br />2<sub><i>m</i></sub>: 2, 4</td>
+		</tr>
+		<tr id="II16">
+			<td><a href="#II16">16</a>.</td>
+			<td><img src="pics/ii/16.png" /></td>
+			<td data-sort="2"><a href="data/ii/16.txt">2</a> (254 B)</td>
+			<td>&minus;3<i>z</i><sup>3</sup> + 13<i>z</i>/12</td>
+			<td>13</td>
+			<td>9</td>
+			<td>2</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 1, 1, 2</td>
+			<td>(4, 3, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 3, 4<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="II17">
+			<td><a href="#II17">17</a>.</td>
+			<td><img src="pics/ii/17.png" /></td>
+			<td data-sort="8"><a href="data/ii/17.txt">8</a> (444 B)</td>
+			<td>6<i>z</i><sup>3</sup>/5 &minus; 17<i>z</i>/6</td>
+			<td>17</td>
+			<td>5</td>
+			<td>4</td>
+			<td>4</td>
+			<td>2</td>
+			<td>1, 4</td>
+			<td>(0, 5, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />4<sub><i>m</i></sub>: 4</td>
+		</tr>
+		<tr id="II18">
+			<td><a href="#II18">18</a>.</td>
+			<td><img src="pics/ii/18.png" /></td>
+			<td data-sort="1"><a href="data/ii/18.txt">1</a> (139 B)</td>
+			<td>3<i>z</i><sup>3</sup>/2 &minus; 19<i>z</i>/6</td>
+			<td>19</td>
+			<td>11</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(4, 5, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 3, 4, 4</td>
+		</tr>
+		<tr id="II19">
+			<td><a href="#II19">19</a>.</td>
+			<td><img src="pics/ii/19.png" /></td>
+			<td data-sort="1"><a href="data/ii/19.txt">1</a> (136 B)</td>
+			<td>&minus;3<i>z</i><sup>3</sup>/2 + 19<i>z</i>/6</td>
+			<td>19</td>
+			<td>11</td>
+			<td>4</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(4, 5, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 2, 4, 4</td>
+		</tr>
+		<tr id="II20">
+			<td><a href="#II20">20</a>.</td>
+			<td><img src="pics/ii/20.png" /></td>
+			<td data-sort="3"><a href="data/ii/20.txt">3</a> (280 B)</td>
+			<td>3<i>z</i><sup>3</sup>/2 &minus; <i>z</i>/24</td>
+			<td>24</td>
+			<td>7</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(2, 4, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 3, 2, 2</td>
+		</tr>
+		<tr id="II21">
+			<td><a href="#II21">21</a>.</td>
+			<td><img src="pics/ii/21.png" /></td>
+			<td data-sort="3"><a href="data/ii/21.txt">3</a> (269 B)</td>
+			<td>&minus;3<i>z</i><sup>3</sup>/2 + <i>z</i>/24</td>
+			<td>24</td>
+			<td>7</td>
+			<td>3</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(2, 4, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2, 2<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="II22">
+			<td><a href="#II22">22</a>.</td>
+			<td><img src="pics/ii/22.png" /></td>
+			<td data-sort="4"><a href="data/ii/22.txt">4</a> (706 B)</td>
+			<td>3<i>z</i><sup>3</sup> &minus; 25<i>z</i>/12</td>
+			<td>25</td>
+			<td>7</td>
+			<td>2</td>
+			<td>2</td>
+			<td>3</td>
+			<td>1, 2, 2</td>
+			<td>(2, 4, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2<br />2<sub><i>m</i></sub>: 4</td>
+		</tr>
+		<tr id="II23">
+			<td><a href="#II23">23</a>.</td>
+			<td><img src="pics/ii/23.png" /></td>
+			<td data-sort="4"><a href="data/ii/23.txt">4</a> (370 B)</td>
+			<td>3<i>z</i><sup>3</sup>/2 &minus; 25<i>z</i>/24</td>
+			<td>25</td>
+			<td>7</td>
+			<td>2</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 1, 1, 2</td>
+			<td>(2, 4, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 3, 2<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="II24">
+			<td><a href="#II24">24</a>.</td>
+			<td><img src="pics/ii/24.png" /></td>
+			<td data-sort="5"><a href="data/ii/24.txt">5</a> (401 B)</td>
+			<td>5<i>z</i><sup>3</sup>/3 &minus; 34<i>z</i>/15</td>
+			<td>34</td>
+			<td>7</td>
+			<td>2</td>
+			<td>2</td>
+			<td>5</td>
+			<td>1, 1, 1, 2, 2</td>
+			<td>(0, 7, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 3<br />2<sub><i>m</i></sub>: 4</td>
+		</tr>
+		<tr id="II25">
+			<td><a href="#II25">25</a>.</td>
+			<td><img src="pics/ii/25.png" /></td>
+			<td data-sort="5"><a href="data/ii/25.txt">5</a> (382 B)</td>
+			<td>&minus;5<i>z</i><sup>3</sup>/3 + 34<i>z</i>/15</td>
+			<td>34</td>
+			<td>7</td>
+			<td>2</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 2, 2, 2</td>
+			<td>(0, 7, 0, 0)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 6</td>
+		</tr>
+		<tr id="II26">
+			<td><a href="#II26">26</a>.</td>
+			<td><img src="pics/ii/26.png" /></td>
+			<td data-sort="2"><a href="data/ii/26.txt">2</a> (284 B)</td>
+			<td>3<i>z</i><sup>3</sup> &minus; 37<i>z</i>/12</td>
+			<td>37</td>
+			<td>11</td>
+			<td>3</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 1, 1, 2</td>
+			<td>(4, 5, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 3, 4, 2<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="II27">
+			<td><a href="#II27">27</a>.</td>
+			<td><img src="pics/ii/27.png" /></td>
+			<td data-sort="2"><a href="data/ii/27.txt">2</a> (284 B)</td>
+			<td>&minus;3<i>z</i><sup>3</sup> + 37<i>z</i>/12</td>
+			<td>37</td>
+			<td>11</td>
+			<td>4</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 1, 1, 2</td>
+			<td>(4, 5, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 3<br />2<sub><i>m</i></sub>: 2, 4, 2</td>
+		</tr>
+		<tr id="II28">
+			<td><a href="#II28">28</a>.</td>
+			<td><img src="pics/ii/28.png" /></td>
+			<td data-sort="5"><a href="data/ii/28.txt">5</a> (637 B)</td>
+			<td>3<i>z</i><sup>3</sup>/2 &minus; 49<i>z</i>/24</td>
+			<td>49</td>
+			<td>9</td>
+			<td>3</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(6, 0, 0, 3)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2<br />2<sub><i>m</i></sub>: 2, 4</td>
+		</tr>
+		<tr id="II29">
+			<td><a href="#II29">29</a>.</td>
+			<td><img src="pics/ii/29.png" /></td>
+			<td data-sort="5"><a href="data/ii/29.txt">5</a> (658 B)</td>
+			<td>&minus;3<i>z</i><sup>3</sup>/2 + 49<i>z</i>/24</td>
+			<td>49</td>
+			<td>9</td>
+			<td>2</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(6, 0, 0, 3)</td>
+			<td>1<sub><i>m</i></sub>: 3, 6</td>
+		</tr>
+		<tr id="II30">
+			<td><a href="#II30">30</a>.</td>
+			<td><img src="pics/ii/30.png" /></td>
+			<td data-sort="1"><a href="data/ii/30.txt">1</a> (132 B)</td>
+			<td>3<i>z</i><sup>3</sup>/2 &minus; 73<i>z</i>/24</td>
+			<td>73</td>
+			<td>11</td>
+			<td>3</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 2, 2, 2</td>
+			<td>(4, 5, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 6, 4</td>
+		</tr>
+		<tr id="II31">
+			<td><a href="#II31">31</a>.</td>
+			<td><img src="pics/ii/31.png" /></td>
+			<td data-sort="1"><a href="data/ii/31.txt">1</a> (137 B)</td>
+			<td>&minus;3<i>z</i><sup>3</sup>/2 + 73<i>z</i>/24</td>
+			<td>73</td>
+			<td>11</td>
+			<td>3</td>
+			<td>2</td>
+			<td>5</td>
+			<td>1, 1, 1, 2, 2</td>
+			<td>(4, 5, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 3<br />2<sub><i>m</i></sub>: 4, 4</td>
+		</tr>
+		<tr id="II32">
+			<td><a href="#II32">32</a>.</td>
+			<td><img src="pics/ii/32.png" /></td>
+			<td data-sort="2"><a href="data/ii/32.txt">2</a> (256 B)</td>
+			<td>7<i>z</i><sup>3</sup>/6 &minus; 163<i>z</i>/42</td>
+			<td>163</td>
+			<td>9</td>
+			<td>4</td>
+			<td>2</td>
+			<td>2</td>
+			<td>1, 2</td>
+			<td>(4, 3, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 1<br />2<sub><i>m</i></sub>: 2, 4, 2</td>
+		</tr>
+		<tr id="II33">
+			<td><a href="#II33">33</a>.</td>
+			<td><img src="pics/ii/33.png" /></td>
+			<td data-sort="2"><a href="data/ii/33.txt">2</a> (266 B)</td>
+			<td>&minus;7<i>z</i><sup>3</sup>/6 + 163<i>z</i>/42</td>
+			<td>163</td>
+			<td>9</td>
+			<td>3</td>
+			<td>1</td>
+			<td>3</td>
+			<td>1, 1, 1</td>
+			<td>(4, 3, 0, 2)</td>
+			<td>1<sub><i>m</i></sub>: 3, 4, 2</td>
+		</tr>
+		<tr id="II34">
+			<td><a href="#II34">34</a>.</td>
+			<td><img src="pics/ii/34.png" /></td>
+			<td data-sort="1"><a href="data/ii/34.txt">1</a> (160 B)</td>
+			<td>6<i>z</i><sup>3</sup>/5 &minus; 169<i>z</i>/120</td>
+			<td>169</td>
+			<td>11</td>
+			<td>3</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 1, 1, 2</td>
+			<td>(6, 2, 0, 3)</td>
+			<td>1<sub><i>m</i></sub>: 3, 2<br />2<sub><i>m</i></sub>: 2, 4</td>
+		</tr>
+		<tr id="II35">
+			<td><a href="#II35">35</a>.</td>
+			<td><img src="pics/ii/35.png" /></td>
+			<td data-sort="1"><a href="data/ii/35.txt">1</a> (161 B)</td>
+			<td>&minus;6<i>z</i><sup>3</sup>/5 + 169<i>z</i>/120</td>
+			<td>169</td>
+			<td>11</td>
+			<td>2</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 1, 1, 2</td>
+			<td>(6, 2, 0, 3)</td>
+			<td>1<sub><i>m</i></sub>: 3, 6<br />2<sub><i>m</i></sub>: 2</td>
+		</tr>
+		<tr id="II36">
+			<td><a href="#II36">36</a>.</td>
+			<td><img src="pics/ii/36.png" /></td>
+			<td data-sort="1"><a href="data/ii/36.txt">1</a> (111 B)</td>
+			<td>6<i>z</i><sup>3</sup>/5 &minus; 289<i>z</i>/120</td>
+			<td>289</td>
+			<td>9</td>
+			<td>2</td>
+			<td>2</td>
+			<td>4</td>
+			<td>1, 2, 2, 2</td>
+			<td>(2, 6, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 1, 2<br />2<sub><i>m</i></sub>: 6</td>
+		</tr>
+		<tr id="II37">
+			<td><a href="#II37">37</a>.</td>
+			<td><img src="pics/ii/37.png" /></td>
+			<td data-sort="1"><a href="data/ii/37.txt">1</a> (116 B)</td>
+			<td>&minus;6<i>z</i><sup>3</sup>/5 + 289<i>z</i>/120</td>
+			<td>289</td>
+			<td>9</td>
+			<td>2</td>
+			<td>2</td>
+			<td>5</td>
+			<td>1, 1, 1, 2, 2</td>
+			<td>(2, 6, 0, 1)</td>
+			<td>1<sub><i>m</i></sub>: 3, 2<br />2<sub><i>m</i></sub>: 4</td>
+		</tr>
+	</tbody>
+</table>
+
+<hr />
+
+<p>Published: 28 Mar 2021<span style="float:right">Last modified: 28 Mar 2021</span></p>
+</body>
+</html>

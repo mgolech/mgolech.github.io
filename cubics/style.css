@@ -1,0 +1,72 @@
+sup, sub {
+	line-height: 0
+}
+
+h1, h2 {
+	color: #000088;
+	font-weight: normal;
+	margin-bottom: 0;
+}
+
+h1 {
+	text-align: center;
+}
+
+td {
+	border: 1px solid grey;
+	vertical-align: middle;
+	padding: 1px 2px;
+}
+
+td:nth-child(1) {
+	text-align: right;
+}
+
+td:nth-child(2), td:nth-child(4), td:nth-child(5), td:nth-child(6), td:nth-child(7), td:nth-child(8), td:nth-child(9), #tI td:nth-child(10) {
+	text-align: center;
+}
+
+td:last-child {
+	padding-left: 5px;
+}
+
+table {
+	white-space: nowrap;
+	border-collapse: collapse;
+}
+
+caption {
+	padding: 1ex;
+	caption-side: top;
+}
+
+span.math {
+	white-space: nowrap;
+}
+
+div.display {
+	text-align: center;
+}
+
+dl {
+	margin-left: 2em;
+}
+
+dt {
+	margin-top: 1px;
+}
+
+table.dataTable thead .sorting {
+	cursor:pointer
+}
+table.dataTable thead .sorting::after {
+	content: "↕";
+	font-size: 0.8em;
+	vertical-align: text-bottom;
+	}
+table.dataTable thead .sorting_asc::after{
+	content: "↓" !important;
+	}
+table.dataTable thead .sorting_desc::after {
+	content: "↑" !important;
+	}
